@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprout-ed</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="add-blog.html" class="nav-link">Add Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>sprout-ed</h1>
+            <a href="add-blog.html" class="add-blog-btn">Add Blog</a>
+        </section>
+        <section class="blog-list">
+            <h2>Blog Posts</h2>
+            <div id="blogs"></div>
+        </section>
+    </main>
+    <script>
+        function displayBlogs() {
+            const blogsContainer = document.getElementById('blogs');
+            const blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+
+            if (blogs.length === 0) {
+                blogsContainer.innerHTML = '<p>No blogs available.</p>';
+                return;
+            }
+
+            blogsContainer.innerHTML = blogs.map(blog => `
+                <div class="blog-post">
+                    <h3>${blog.title}</h3>
+                    <p><strong>Category:</strong> ${blog.category}</p>
+                    <p><strong>Date:</strong> ${blog.date}</p>
+                    <p>${blog.content}</p>
+                </div>
+            `).join('');
+        }
+
+        window.onload = displayBlogs;
+    </script>
+</body>
+</html>
